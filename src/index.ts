@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 import { createTask } from "./automations/task/create-task";
 import { startTask } from "./automations/task/start-task";
 import { stopTask } from "./automations/task/stop-task";
-import { TaskOptionEnum } from "./enums/task-option-enum";
+import { TaskEnum } from "./enums/task-enum";
 
 const app = async () => {
   const { selectedOption } = await inquirer.prompt([
@@ -11,21 +11,21 @@ const app = async () => {
       name: "selectedOption",
       message: "Selecione uma opção:",
       choices: [
-        { name: "Iniciar tarefa", value: TaskOptionEnum.startTask },
-        { name: "Parar tarefa", value: TaskOptionEnum.stopTask },
-        { name: "Criar tarefa", value: TaskOptionEnum.createTask },
+        { name: "Iniciar tarefa", value: TaskEnum.startTask },
+        { name: "Parar tarefa", value: TaskEnum.stopTask },
+        { name: "Criar tarefa", value: TaskEnum.createTask },
       ],
     },
   ]);
 
   switch (selectedOption) {
-    case TaskOptionEnum.startTask:
+    case TaskEnum.startTask:
       startTask();
       return;
-    case TaskOptionEnum.stopTask:
+    case TaskEnum.stopTask:
       stopTask();
       return;
-    case TaskOptionEnum.createTask:
+    case TaskEnum.createTask:
       createTask();
       return;
   }
