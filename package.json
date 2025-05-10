@@ -3,6 +3,7 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
+    "inquirer": "^12.6.0",
     "puppeteer": "^24.8.2"
   },
   "devDependencies": {

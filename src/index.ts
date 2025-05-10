@@ -1,29 +1,35 @@
-import puppeteer from "puppeteer";
-import { loginCredentials, m8TaskUrl } from "./constants";
+import inquirer from "inquirer";
+import { createTask } from "./automations/task/create-task";
+import { startTask } from "./automations/task/start-task";
+import { stopTask } from "./automations/task/stop-task";
 
-const run = async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+enum TaskOptionEnum {
+  startTask,
+  stopTask,
+  createTask,
+}
 
-  const page = await browser.newPage();
+const app = async () => {
+  const { selectedOption } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "selectedOption",
+      message:
+        "Selecione uma opção:\n[1] Iniciar tarefa\n[2] Parar tarefa\n[3] Criar tarefa",
+    },
+  ]);
 
-  await page.goto(m8TaskUrl);
-
-  await page.setViewport({ width: 1080, height: 1024 });
-
-  const userInput = page.locator("#input-login");
-  const passwordInput = page.locator("#input-senha");
-
-  await userInput.fill(loginCredentials.user);
-  await passwordInput.fill(loginCredentials.password);
-
-  const buttonLoginSelector =
-    "body > div.--nf-login-v3-container.--nf-prod-erp > main > aside > div > section > form.login-form > div.--nfgo > button";
-  const buttonLogin = page.locator(buttonLoginSelector);
-
-  await buttonLogin.click();
+  switch (selectedOption) {
+    case TaskOptionEnum.startTask:
+      startTask();
+      return;
+    case TaskOptionEnum.stopTask:
+      stopTask();
+      return;
+    case TaskOptionEnum.createTask:
+      createTask();
+      return;
+  }
 };
 
-run();
+app();
