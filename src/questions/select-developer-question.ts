@@ -6,7 +6,7 @@ export const selectDeveloperQuestion = async () => {
     {
       type: "list",
       name: "selectedDeveloper",
-      message: "Selecione o desenvolvedor:",
+      message: "Nome do Desenvolvedor:",
       choices: [
         { name: "Paulo Turco", value: DeveloperEnum["Paulo Turco"] },
         { name: "Paulo Muller", value: DeveloperEnum["Paulo Muller"] },
